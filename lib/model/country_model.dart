@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 CountryModel countryModelFromJson(String str) =>
-    CountryModel.fromJson(json.decode(str));
+    CountryModel.fromJson(json.decode(str)["data"]);
 
 String countryModelToJson(CountryModel data) => json.encode(data.toJson());
 
