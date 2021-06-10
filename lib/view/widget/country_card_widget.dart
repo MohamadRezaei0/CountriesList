@@ -32,9 +32,14 @@ class CountryCard extends StatelessWidget {
           child: Row(
             children: [
               Text(cid),
-              SizedBox(width: 4),
-              Text(name),
-              Spacer(),
+              SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  name,
+                  style: TextStyle(color: Colors.white, fontSize: 21),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
               Text(id),
             ],
           )),

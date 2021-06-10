@@ -13,9 +13,10 @@ class CountryListScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Obx(() {
-              if (_controller.isLoading.value)
+              if (_controller.isLoading.value) {
+                print("Loading");
                 return Center(child: CircularProgressIndicator());
-              else {
+              } else {
                 return Expanded(
                   child: ListView.separated(
                     padding: EdgeInsets.all(8),
