@@ -2,10 +2,10 @@ import 'package:countrylist/constants/constants.dart';
 import 'package:countrylist/model/country_model.dart';
 import 'package:sqflite/sqflite.dart';
 
-const String columnId = "_id";
+const String columnId = "id";
 const String columnName = "name";
 const String tableName = "countries";
-const String columnCid = "CountryId";
+const String columnCid = "country_id";
 
 class StorageRepository {
   Database _db;

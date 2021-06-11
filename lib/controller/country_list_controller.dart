@@ -14,7 +14,7 @@ class CountryListController extends GetxController {
     if (result == ConnectivityResult.mobile ||
         result == ConnectivityResult.wifi) {
       getCountryListFromApi();
-    } else {
+    } else if (await StorageRepository.databaseExists()) {
       getCountryListFromDB();
     }
 
@@ -29,7 +29,13 @@ class CountryListController extends GetxController {
         (response) async {
           if (response.statusCode == 200) {
             countries(countryModelFromJson(response.body).countries);
-            if (!(await StorageRepository.databaseExists())) insertDataToDb();
+            if (!(await StorageRepository.databaseExists())) {
+              final store = StorageRepository();
+              await store.open();
+              countries.forEach((country) {
+                store.insert(country);
+              });
+            }
           } else {
             print(response.statusCode);
           }
@@ -42,21 +48,13 @@ class CountryListController extends GetxController {
     }
   }
 
-  Future insertDataToDb() async {
-    final store = StorageRepository();
-    await store.open();
-    countries.forEach((country) {
-      store.insert(country);
-    });
-    store.close();
-  }
-
   Future getCountryListFromDB() async {
     isLoading(true);
     try {
       final store = StorageRepository();
       await store.open();
       countries(await store.getCountries());
+      store.close();
     } catch (e) {
       print(e);
     } finally {
