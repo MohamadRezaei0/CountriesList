@@ -9,8 +9,10 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+
   get: ^4.1.4
   http: ^0.13.3
+  sqflite: ^2.0.0+3
   connectivity: ^3.0.6
 
   flutter:

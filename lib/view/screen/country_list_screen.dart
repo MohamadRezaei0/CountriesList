@@ -9,34 +9,34 @@ class CountryListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Obx(() {
-              if (_controller.isLoading.value) {
-                print("Loading");
-                return Center(child: CircularProgressIndicator());
-              } else {
-                return Expanded(
-                  child: ListView.separated(
-                    padding: EdgeInsets.all(8),
-                    // physics: ChampionScr,
-                    // shrinkWrap: true,
-                    itemBuilder: (_, index) {
-                      final country = _controller.countries[index];
-                      return CountryCard(
-                        name: country.name,
-                        id: country.id.toString(),
-                        cid: country.countryId.toString(),
-                      );
-                    },
-                    separatorBuilder: (_, __) => SizedBox(height: 8),
-                    itemCount: _controller.countries.length,
-                  ),
-                );
-              }
-            })
-          ],
+        child: SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Country list", style: TextStyle(fontSize: 22)),
+              Obx(() {
+                if (_controller.isLoading.value) {
+                  return Center(child: CircularProgressIndicator());
+                } else {
+                  return Expanded(
+                    child: ListView.separated(
+                      itemCount: _controller.countries.length,
+                      padding: EdgeInsets.all(8),
+                      itemBuilder: (_, index) {
+                        final country = _controller.countries[index];
+                        return CountryCard(
+                          name: country.name,
+                          id: country.id.toString(),
+                          cid: country.countryId.toString(),
+                        );
+                      },
+                      separatorBuilder: (_, __) => SizedBox(height: 8),
+                    ),
+                  );
+                }
+              })
+            ],
+          ),
         ),
       ),
     );
